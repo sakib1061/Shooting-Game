@@ -38,10 +38,11 @@
   <!-- MAIN CANVAS -->
   <canvas id="gameCanvas" class="absolute inset-0 w-full h-full block cursor-crosshair z-0"></canvas>
 
-  <!-- HUD OVERLAY -->
+  <!-- HUD OVERLAY (Perimeter Status Cluster) -->
   <div id="hud" class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-4 sm:p-6 hidden">
     <!-- Top Bar -->
     <div class="flex items-start justify-between w-full">
+      <!-- Score & Best -->
       <div class="flex flex-col gap-1 pointer-events-auto">
         <div class="flex items-baseline gap-2 bg-slate-950/80 border border-cyan-500/30 px-3.5 py-1.5 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.15)]">
           <span class="text-[10px] font-bold text-cyan-400 tracking-wider uppercase">Score</span>
@@ -61,6 +62,7 @@
           <span id="hudModeVal">60s</span>
         </div>
 
+        <!-- Combo Streak Badge -->
         <div id="hudComboContainer" class="hidden flex-col items-center">
           <div class="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]">
             <span>🔥</span>
@@ -73,13 +75,8 @@
         </div>
       </div>
 
-      <!-- Controls -->
+      <!-- Quick Action Controls -->
       <div class="flex items-center gap-1.5 pointer-events-auto">
-        <button id="btnOpenPhoto" class="flex items-center gap-1.5 text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-xl bg-slate-900/90 hover:bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 transition-all shadow-[0_0_12px_rgba(6,182,212,0.2)] cursor-pointer">
-          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span class="hidden sm:inline">Change Photo</span>
-        </button>
-
         <button id="btnToggleMute" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white transition-colors cursor-pointer" title="Toggle Sound (M)">
           <span id="muteIcon">🔊</span>
         </button>
@@ -96,8 +93,11 @@
 
     <!-- Bottom Bar -->
     <div class="flex items-end justify-between w-full">
+      <!-- Active Weapon -->
       <div class="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs">
-        <div id="weaponIconBox" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">⚡</div>
+        <div id="weaponIconBox" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+          ⚡
+        </div>
         <div class="flex flex-col">
           <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Weapon</span>
           <span id="hudWeaponName" class="font-bold text-white uppercase text-xs">Pulse Blaster</span>
@@ -105,6 +105,7 @@
         <div id="hudWeaponTimer" class="hidden ml-2 pl-2 border-l border-slate-800 font-mono text-amber-400 text-xs font-bold">10.0s</div>
       </div>
 
+      <!-- Hits & Accuracy -->
       <div class="flex items-center gap-3 bg-slate-950/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs font-mono-nums">
         <div class="flex items-center gap-1.5 text-slate-400">
           <span class="text-cyan-400">🎯</span>
@@ -122,6 +123,7 @@
 
   <!-- TITLE SCREEN -->
   <div id="titleScreen" class="absolute inset-0 z-30 flex flex-col items-center justify-between p-6 sm:p-10 pointer-events-auto bg-slate-950/75 backdrop-blur-xs">
+    <!-- Top Row -->
     <div class="w-full max-w-4xl flex items-center justify-between">
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-amber-300">
         <span>🏆</span>
@@ -129,33 +131,29 @@
         <span id="titleHighScore" class="font-mono-nums font-black text-white">0</span>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button id="btnTitlePhoto" class="flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-900/90 hover:bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 transition-colors shadow-[0_0_15px_rgba(6,182,212,0.2)] cursor-pointer">
-          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          <span>Customize Face Photo</span>
-        </button>
-
-        <button id="btnTitleMute" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors cursor-pointer">
-          <span id="titleMuteIcon">🔊</span>
-        </button>
-      </div>
+      <button id="btnTitleMute" class="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 transition-colors cursor-pointer">
+        <span id="titleMuteIcon">🔊</span>
+      </button>
     </div>
 
+    <!-- Center Hero -->
     <div class="flex flex-col items-center text-center max-w-xl my-auto">
-      <div id="heroAvatarBadge" class="relative group cursor-pointer mb-5" title="Click to change target face">
-        <div class="absolute -inset-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-fuchsia-500 opacity-60 group-hover:opacity-100 blur-lg transition duration-500 group-hover:scale-105"></div>
+      <!-- Fixed Target Face Spotlight -->
+      <div class="relative group mb-5">
+        <div class="absolute -inset-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-fuchsia-500 opacity-60 blur-lg"></div>
         <div class="relative w-28 h-28 rounded-full p-1 bg-slate-950 border-2 border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.7)] flex items-center justify-center overflow-hidden">
-          <img id="titleAvatarImg" src="/assets/aistudio/saiful_99435e5e.png" alt="Target Face" class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110">
+          <img id="titleAvatarImg" src="" alt="Target Face" class="w-full h-full object-cover rounded-full">
           <div id="titleAccessoryOverlay" class="absolute top-1 text-2xl filter drop-shadow hidden"></div>
           <div class="absolute inset-0 rounded-full border border-cyan-400/40 pointer-events-none flex items-center justify-center">
             <span class="text-cyan-300/60 text-2xl font-light">+</span>
           </div>
         </div>
         <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-cyan-950/90 border border-cyan-400/60 text-[10px] font-bold text-cyan-300 px-2.5 py-0.5 rounded-full whitespace-nowrap shadow">
-          Custom Face Attached
+          Active Target Face
         </span>
       </div>
 
+      <!-- Title Lockup -->
       <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-rose-400 drop-shadow-[0_0_25px_rgba(6,182,212,0.5)] mb-2">
         Face Blaster 2D
       </h1>
@@ -163,6 +161,7 @@
         Blast floating photo targets &bull; Chain insane combos &bull; Unlock power-ups
       </p>
 
+      <!-- Mode Select -->
       <div class="grid grid-cols-3 gap-2 w-full max-w-sm mb-6 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
         <button id="modeBtnArcade" class="py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1 cursor-pointer bg-cyan-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.6)]">
           <span>⏱️</span>
@@ -178,6 +177,7 @@
         </button>
       </div>
 
+      <!-- Start Button -->
       <button id="btnStart" class="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-base sm:text-lg font-black text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-teal-300 hover:from-cyan-300 hover:to-teal-200 shadow-[0_0_35px_rgba(6,182,212,0.7)] hover:shadow-[0_0_50px_rgba(6,182,212,0.9)] hover:scale-105 active:scale-95 transition-all cursor-pointer">
         <span>▶</span>
         <span>START GAME</span>
@@ -185,6 +185,7 @@
       </button>
     </div>
 
+    <!-- Hints -->
     <div class="text-[11px] sm:text-xs text-slate-400 font-mono tracking-wide flex items-center gap-2 sm:gap-4 flex-wrap justify-center border-t border-slate-800/80 pt-4 w-full max-w-lg">
       <span>🖱️ Click/Tap Shoot</span>
       <span>&bull;</span>
@@ -208,9 +209,6 @@
         </button>
         <button id="btnRestartFromPause" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors cursor-pointer">
           Restart Match (R)
-        </button>
-        <button id="btnPhotoFromPause" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-semibold text-xs border border-cyan-500/20 transition-colors cursor-pointer">
-          Change Target Photo
         </button>
         <button id="btnExitToTitle" class="w-full py-2 rounded-xl text-slate-400 hover:text-white text-xs transition-colors cursor-pointer">
           Exit to Title Screen
@@ -252,9 +250,6 @@
         <button id="btnPlayAgain" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-black text-sm sm:text-base shadow-[0_0_25px_rgba(6,182,212,0.5)] transition-all cursor-pointer">
           Play Again (Space)
         </button>
-        <button id="btnPhotoFromGameOver" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-cyan-300 font-semibold text-xs border border-cyan-500/30 transition-colors cursor-pointer">
-          Customize Target Photo
-        </button>
         <button id="btnGameOverToTitle" class="w-full py-2 text-slate-400 hover:text-white text-xs transition-colors cursor-pointer">
           Back to Title Menu
         </button>
@@ -262,117 +257,26 @@
     </div>
   </div>
 
-  <!-- PHOTO UPLOADER MODAL -->
-  <div id="photoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
-    <div class="relative w-full max-w-xl bg-slate-900/95 border border-cyan-500/30 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.25)] p-6 text-slate-100 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
-        <div>
-          <h2 class="text-xl font-bold tracking-wide text-white flex items-center gap-2">
-            Target Face Customizer
-            <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Custom Photo</span>
-          </h2>
-          <p class="text-xs text-slate-400">Select any photo from your device to put onto floating targets</p>
-        </div>
-        <button id="btnClosePhotoModal" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center cursor-pointer">✕</button>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 mb-6">
-        <div class="sm:col-span-5 flex flex-col items-center justify-center p-4 rounded-xl bg-slate-950/60 border border-slate-800 relative">
-          <span class="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider mb-2">Live Target Preview</span>
-          <div class="relative w-36 h-36 flex items-center justify-center">
-            <div class="absolute inset-1 rounded-full border border-cyan-400/60 shadow-[0_0_20px_rgba(6,182,212,0.6)]"></div>
-            <div class="w-28 h-28 rounded-full overflow-hidden border-2 border-cyan-300 relative bg-slate-900 flex items-center justify-center">
-              <img id="modalPreviewImg" src="/assets/aistudio/saiful_99435e5e.png" alt="Preview" class="w-full h-full object-cover">
-              <div id="modalAccessoryPreview" class="absolute text-2xl filter drop-shadow hidden"></div>
-            </div>
-            <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
-              <div class="w-full h-[1px] bg-cyan-400/20"></div>
-              <div class="h-full w-[1px] bg-cyan-400/20 absolute"></div>
-            </div>
-          </div>
-          <span class="text-[10px] text-slate-400 mt-2 text-center">Faces wobble & explode into neon particles!</span>
-        </div>
-
-        <div class="sm:col-span-7 flex flex-col justify-between gap-3">
-          <label for="customFileInput" class="flex-1 border-2 border-dashed border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800/40 rounded-xl p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-all">
-            <input type="file" id="customFileInput" accept="image/*" class="hidden">
-            <div class="w-12 h-12 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2 text-2xl">📁</div>
-            <p class="text-sm font-semibold text-slate-200">Choose a photo from your device</p>
-            <p class="text-xs text-slate-400 mt-1">PNG, JPG, WebP supported &middot; Click or Drag & Drop</p>
-          </label>
-
-          <div>
-            <span class="text-[11px] font-medium text-slate-400 mb-1.5 block">Presets:</span>
-            <div class="grid grid-cols-2 gap-2">
-              <button id="presetDefault" class="text-xs px-2.5 py-1.5 rounded-lg border border-cyan-400 bg-cyan-500/20 text-cyan-300 font-semibold text-left truncate cursor-pointer">Default Photo</button>
-              <button id="presetCyber" class="text-xs px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-800/50 hover:bg-slate-800 text-slate-300 text-left truncate cursor-pointer">Cyber Pilot</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-4 mb-5 space-y-3">
-        <div class="text-xs font-semibold text-cyan-300 uppercase tracking-wider">Fit & Alignment Adjustments</div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <div class="flex justify-between text-slate-300 mb-1">
-              <span>Face Zoom</span>
-              <span id="zoomVal" class="font-mono text-cyan-400">115%</span>
-            </div>
-            <input type="range" id="zoomSlider" min="0.8" max="2.5" step="0.05" value="1.15" class="w-full accent-cyan-400 bg-slate-800 h-1.5 rounded-lg cursor-pointer">
-          </div>
-          <div>
-            <div class="flex justify-between text-slate-300 mb-1">
-              <span>Vertical Position</span>
-              <span id="offsetVal" class="font-mono text-cyan-400">0%</span>
-            </div>
-            <input type="range" id="offsetSlider" min="-40" max="40" step="2" value="0" class="w-full accent-cyan-400 bg-slate-800 h-1.5 rounded-lg cursor-pointer">
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <div class="text-xs font-semibold text-amber-300 uppercase tracking-wider mb-2.5">Face Accessories & Props</div>
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="accessoryGrid">
-          <button data-acc="none" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-200 cursor-pointer">
-            <span class="text-xl mb-1">👤</span>
-            <span class="text-[11px] font-medium">None</span>
-          </button>
-          <button data-acc="sunglasses" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer">
-            <span class="text-xl mb-1">🕶️</span>
-            <span class="text-[11px] font-medium">Shades</span>
-          </button>
-          <button data-acc="crown" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer">
-            <span class="text-xl mb-1">👑</span>
-            <span class="text-[11px] font-medium">Crown</span>
-          </button>
-          <button data-acc="party_hat" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer">
-            <span class="text-xl mb-1">🎉</span>
-            <span class="text-[11px] font-medium">Party</span>
-          </button>
-          <button data-acc="halo" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer">
-            <span class="text-xl mb-1">😇</span>
-            <span class="text-[11px] font-medium">Halo</span>
-          </button>
-          <button data-acc="laser_eyes" class="acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer">
-            <span class="text-xl mb-1">🔴</span>
-            <span class="text-[11px] font-medium">Visor</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between border-t border-slate-800 pt-4">
-        <button id="btnResetPhoto" class="text-xs text-slate-400 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 cursor-pointer">Reset to Default</button>
-        <div class="flex items-center gap-2">
-          <button id="btnCancelPhoto" class="text-xs px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer">Cancel</button>
-          <button id="btnSavePhoto" class="text-xs font-bold px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-[0_0_20px_rgba(6,182,212,0.4)] cursor-pointer">Apply to Targets</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- JAVASCRIPT GAME ENGINE -->
   <script>
+    // =========================================================================
+    // 📸 1. PHOTO CONFIGURATION (SET YOUR PHOTO HERE)
+    // =========================================================================
+    // You can set TARGET_PHOTO to:
+    //  - Local filename (same folder as this HTML file): "photo.jpg" or "myface.png"
+    //  - Web URL: "https://example.com/face.jpg"
+    //  - Base64 Data URL: "data:image/jpeg;base64,..."
+    // =========================================================================
+    const TARGET_PHOTO = "saiful_99435e5e.png"; // Or: "/assets/aistudio/saiful_99435e5e.png"
+
+    // Optional fine-tuning for your face framing:
+    const PHOTO_ZOOM = 1.15;       // Scale: 1.0 = normal, 1.3 = zoom in, 0.9 = zoom out
+    const PHOTO_OFFSET_Y = 0;      // Vertical shift (-20% to move up, +20% to move down)
+    const ACCESSORY = "none";      // Options: 'none', 'sunglasses', 'crown', 'party_hat', 'halo', 'laser_eyes'
+
+    // =========================================================================
+    // 🔊 2. PROCEDURAL WEB AUDIO SYNTHESIZER
+    // =========================================================================
     class SoundManager {
       constructor() {
         this.ctx = null;
@@ -561,16 +465,11 @@
 
     const sound = new SoundManager();
 
-    const DEFAULT_IMAGE_PATH = '/assets/aistudio/saiful_99435e5e.png';
+    // =========================================================================
+    // 🎮 3. GAME STATE & SIMULATION VARIABLES
+    // =========================================================================
     let gameState = 'title';
     let gameMode = 'arcade';
-
-    let faceSettings = {
-      imageUrl: DEFAULT_IMAGE_PATH,
-      zoom: 1.15,
-      offsetY: 0,
-      accessory: 'none'
-    };
 
     let stats = {
       score: 0,
@@ -607,14 +506,33 @@
     let mousePos = { x: -100, y: -100, active: false };
     let isMouseDown = false;
 
-    let faceImage = new Image();
+    // Load fixed target photo
+    const faceImage = new Image();
     faceImage.crossOrigin = 'anonymous';
-    faceImage.src = faceSettings.imageUrl;
+    faceImage.src = TARGET_PHOTO;
 
     let imageLoaded = false;
-    faceImage.onload = () => { imageLoaded = true; };
-    faceImage.onerror = () => { imageLoaded = false; };
+    faceImage.onload = () => {
+      imageLoaded = true;
+      document.getElementById('titleAvatarImg').src = TARGET_PHOTO;
+      document.getElementById('titleAvatarImg').style.transform = `scale(${PHOTO_ZOOM}) translateY(${PHOTO_OFFSET_Y}%)`;
+    };
+    faceImage.onerror = () => {
+      // Fallback try relative root if needed
+      if (!TARGET_PHOTO.startsWith('/')) {
+        faceImage.src = '/assets/aistudio/' + TARGET_PHOTO;
+      }
+    };
 
+    // Show accessories on Title screen if configured
+    const titleAcc = document.getElementById('titleAccessoryOverlay');
+    const iconMap = { sunglasses: '🕶️', crown: '👑', party_hat: '🎉', halo: '😇', laser_eyes: '🔴' };
+    if (iconMap[ACCESSORY]) {
+      titleAcc.innerText = iconMap[ACCESSORY];
+      titleAcc.classList.remove('hidden');
+    }
+
+    // High DPI Canvas Scaling
     function resizeCanvas() {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
@@ -637,6 +555,9 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    // =========================================================================
+    // 🎯 4. TARGETS & VISUAL FX
+    // =========================================================================
     let nextTargetId = 1;
     function spawnTarget() {
       const w = window.innerWidth;
@@ -717,6 +638,9 @@
       });
     }
 
+    // =========================================================================
+    // 🔫 5. SHOOTING & HIT-DETECTION
+    // =========================================================================
     function fireWeapon(clientX, clientY) {
       if (gameState !== 'playing') return;
 
@@ -858,6 +782,9 @@
       }
     }
 
+    // =========================================================================
+    // 🔄 6. MAIN 60FPS SIMULATION & RENDER LOOP
+    // =========================================================================
     function gameLoop(now) {
       if (!lastTime) lastTime = now;
       const rawDt = (now - lastTime) / 1000;
@@ -991,8 +918,8 @@
         ctx.clip();
 
         if (imageLoaded && faceImage.complete && faceImage.naturalWidth > 0) {
-          const zoom = faceSettings.zoom || 1.1;
-          const offsetY = ((faceSettings.offsetY || 0) / 100) * t.radius * 2;
+          const zoom = PHOTO_ZOOM || 1.15;
+          const offsetY = ((PHOTO_OFFSET_Y || 0) / 100) * t.radius * 2;
           const size = t.radius * 2 * zoom;
           ctx.drawImage(faceImage, -size / 2, -size / 2 + offsetY, size, size);
         } else {
@@ -1019,14 +946,14 @@
         ctx.beginPath(); ctx.arc(0, 0, t.radius * 0.35, 0, Math.PI * 2);
         ctx.strokeStyle = `${t.color}66`; ctx.stroke();
 
-        if (faceSettings.accessory === 'sunglasses') {
+        if (ACCESSORY === 'sunglasses') {
           ctx.fillStyle = '#0f172a'; ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 1.5;
           ctx.fillRect(-t.radius * 0.65, -t.radius * 0.15, t.radius * 0.55, t.radius * 0.3);
           ctx.strokeRect(-t.radius * 0.65, -t.radius * 0.15, t.radius * 0.55, t.radius * 0.3);
           ctx.fillRect(t.radius * 0.1, -t.radius * 0.15, t.radius * 0.55, t.radius * 0.3);
           ctx.strokeRect(t.radius * 0.1, -t.radius * 0.15, t.radius * 0.55, t.radius * 0.3);
           ctx.beginPath(); ctx.moveTo(-t.radius * 0.1, -t.radius * 0.05); ctx.lineTo(t.radius * 0.1, -t.radius * 0.05); ctx.stroke();
-        } else if (faceSettings.accessory === 'crown') {
+        } else if (ACCESSORY === 'crown') {
           ctx.fillStyle = '#f59e0b'; ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 1.5;
           ctx.beginPath();
           ctx.moveTo(-t.radius * 0.7, -t.radius * 0.8);
@@ -1037,14 +964,14 @@
           ctx.lineTo(t.radius * 0.8, -t.radius * 1.35);
           ctx.lineTo(t.radius * 0.7, -t.radius * 0.8);
           ctx.closePath(); ctx.fill(); ctx.stroke();
-        } else if (faceSettings.accessory === 'halo') {
+        } else if (ACCESSORY === 'halo') {
           ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 3;
           ctx.beginPath(); ctx.ellipse(0, -t.radius * 1.15, t.radius * 0.65, t.radius * 0.22, 0, 0, Math.PI * 2); ctx.stroke();
-        } else if (faceSettings.accessory === 'party_hat') {
+        } else if (ACCESSORY === 'party_hat') {
           ctx.fillStyle = '#ec4899'; ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(-t.radius * 0.5, -t.radius * 0.85); ctx.lineTo(0, -t.radius * 1.6); ctx.lineTo(t.radius * 0.5, -t.radius * 0.85); ctx.closePath(); ctx.fill(); ctx.stroke();
           ctx.fillStyle = '#fde047'; ctx.beginPath(); ctx.arc(0, -t.radius * 1.6, 5, 0, Math.PI * 2); ctx.fill();
-        } else if (faceSettings.accessory === 'laser_eyes') {
+        } else if (ACCESSORY === 'laser_eyes') {
           ctx.fillStyle = 'rgba(239, 68, 68, 0.85)';
           ctx.fillRect(-t.radius * 0.75, -t.radius * 0.15, t.radius * 1.5, t.radius * 0.25);
         }
@@ -1142,6 +1069,9 @@
     }
     requestAnimationFrame(gameLoop);
 
+    // =========================================================================
+    // 🖥️ 7. UI CONTROLLERS & INPUT
+    // =========================================================================
     function updateHUD() {
       document.getElementById('hudScore').innerText = stats.score.toLocaleString();
       document.getElementById('hudHighScore').innerText = stats.highScore.toLocaleString();
@@ -1301,132 +1231,6 @@
         if (gameState === 'playing' || gameState === 'paused') startGame();
       }
     });
-
-    const photoModal = document.getElementById('photoModal');
-    const customFileInput = document.getElementById('customFileInput');
-    const modalPreviewImg = document.getElementById('modalPreviewImg');
-    const zoomSlider = document.getElementById('zoomSlider');
-    const offsetSlider = document.getElementById('offsetSlider');
-    const zoomVal = document.getElementById('zoomVal');
-    const offsetVal = document.getElementById('offsetVal');
-
-    let tempFace = { ...faceSettings };
-
-    function openPhotoModal() {
-      tempFace = { ...faceSettings };
-      modalPreviewImg.src = tempFace.imageUrl;
-      zoomSlider.value = tempFace.zoom;
-      offsetSlider.value = tempFace.offsetY;
-      zoomVal.innerText = Math.round(tempFace.zoom * 100) + '%';
-      offsetVal.innerText = tempFace.offsetY + '%';
-      modalPreviewImg.style.transform = `scale(${tempFace.zoom}) translateY(${tempFace.offsetY}%)`;
-      updateAccessoryUI(tempFace.accessory);
-      photoModal.classList.remove('hidden');
-    }
-
-    function closePhotoModal() {
-      photoModal.classList.add('hidden');
-    }
-
-    document.getElementById('btnOpenPhoto').onclick = openPhotoModal;
-    document.getElementById('btnTitlePhoto').onclick = openPhotoModal;
-    document.getElementById('heroAvatarBadge').onclick = openPhotoModal;
-    document.getElementById('btnPhotoFromPause').onclick = openPhotoModal;
-    document.getElementById('btnPhotoFromGameOver').onclick = openPhotoModal;
-    document.getElementById('btnClosePhotoModal').onclick = closePhotoModal;
-    document.getElementById('btnCancelPhoto').onclick = closePhotoModal;
-
-    customFileInput.addEventListener('change', (e) => {
-      const file = e.target.files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          tempFace.imageUrl = evt.target.result;
-          modalPreviewImg.src = tempFace.imageUrl;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    zoomSlider.addEventListener('input', (e) => {
-      tempFace.zoom = parseFloat(e.target.value);
-      zoomVal.innerText = Math.round(tempFace.zoom * 100) + '%';
-      modalPreviewImg.style.transform = `scale(${tempFace.zoom}) translateY(${tempFace.offsetY}%)`;
-    });
-
-    offsetSlider.addEventListener('input', (e) => {
-      tempFace.offsetY = parseInt(e.target.value, 10);
-      offsetVal.innerText = tempFace.offsetY + '%';
-      modalPreviewImg.style.transform = `scale(${tempFace.zoom}) translateY(${tempFace.offsetY}%)`;
-    });
-
-    function updateAccessoryUI(acc) {
-      tempFace.accessory = acc;
-      document.querySelectorAll('.acc-btn').forEach(b => {
-        if (b.dataset.acc === acc) {
-          b.className = 'acc-btn flex flex-col items-center p-2 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-200 cursor-pointer';
-        } else {
-          b.className = 'acc-btn flex flex-col items-center p-2 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 cursor-pointer';
-        }
-      });
-      const iconMap = { sunglasses: '🕶️', crown: '👑', party_hat: '🎉', halo: '😇', laser_eyes: '🔴' };
-      const preview = document.getElementById('modalAccessoryPreview');
-      if (iconMap[acc]) {
-        preview.innerText = iconMap[acc];
-        preview.classList.remove('hidden');
-      } else {
-        preview.classList.add('hidden');
-      }
-    }
-
-    document.querySelectorAll('.acc-btn').forEach(btn => {
-      btn.onclick = () => updateAccessoryUI(btn.dataset.acc);
-    });
-
-    document.getElementById('presetDefault').onclick = () => {
-      tempFace.imageUrl = DEFAULT_IMAGE_PATH;
-      modalPreviewImg.src = tempFace.imageUrl;
-    };
-    document.getElementById('presetCyber').onclick = () => {
-      tempFace.imageUrl = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
-      modalPreviewImg.src = tempFace.imageUrl;
-    };
-
-    document.getElementById('btnResetPhoto').onclick = () => {
-      tempFace.imageUrl = DEFAULT_IMAGE_PATH;
-      tempFace.zoom = 1.15;
-      tempFace.offsetY = 0;
-      tempFace.accessory = 'none';
-      modalPreviewImg.src = tempFace.imageUrl;
-      zoomSlider.value = 1.15;
-      offsetSlider.value = 0;
-      zoomVal.innerText = '115%';
-      offsetVal.innerText = '0%';
-      modalPreviewImg.style.transform = 'scale(1.15) translateY(0%)';
-      updateAccessoryUI('none');
-    };
-
-    document.getElementById('btnSavePhoto').onclick = () => {
-      faceSettings = { ...tempFace };
-      faceImage = new Image();
-      faceImage.crossOrigin = 'anonymous';
-      faceImage.src = faceSettings.imageUrl;
-      faceImage.onload = () => { imageLoaded = true; };
-      faceImage.onerror = () => { imageLoaded = false; };
-
-      document.getElementById('titleAvatarImg').src = faceSettings.imageUrl;
-      document.getElementById('titleAvatarImg').style.transform = `scale(${faceSettings.zoom}) translateY(${faceSettings.offsetY}%)`;
-      const titleAcc = document.getElementById('titleAccessoryOverlay');
-      const iconMap = { sunglasses: '🕶️', crown: '👑', party_hat: '🎉', halo: '😇', laser_eyes: '🔴' };
-      if (iconMap[faceSettings.accessory]) {
-        titleAcc.innerText = iconMap[faceSettings.accessory];
-        titleAcc.classList.remove('hidden');
-      } else {
-        titleAcc.classList.add('hidden');
-      }
-
-      closePhotoModal();
-    };
 
     document.getElementById('titleHighScore').innerText = stats.highScore.toLocaleString();
   </script>
