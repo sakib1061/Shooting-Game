@@ -1,0 +1,6 @@
+{
+  "name": "Face Target Blaster",
+  "description": "An arcade 2D canvas shooter featuring floating targets with custom photo faces, procedural Web Audio SFX, combo multipliers, and particle bursts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
