@@ -28,16 +28,8 @@
       font-family: 'JetBrains Mono', monospace;
       font-variant-numeric: tabular-nums;
     }
-    /* Hide scrollbars */
     ::-webkit-scrollbar {
       display: none;
-    }
-    @keyframes pulseSlow {
-      0%, 100% { opacity: 0.9; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.04); }
-    }
-    .animate-pulse-slow {
-      animation: pulseSlow 2.5s infinite ease-in-out;
     }
   </style>
 </head>
@@ -46,11 +38,10 @@
   <!-- MAIN CANVAS -->
   <canvas id="gameCanvas" class="absolute inset-0 w-full h-full block cursor-crosshair z-0"></canvas>
 
-  <!-- HUD OVERLAY (Perimeter Status Cluster) -->
+  <!-- HUD OVERLAY -->
   <div id="hud" class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-4 sm:p-6 hidden">
     <!-- Top Bar -->
     <div class="flex items-start justify-between w-full">
-      <!-- Score & Best -->
       <div class="flex flex-col gap-1 pointer-events-auto">
         <div class="flex items-baseline gap-2 bg-slate-950/80 border border-cyan-500/30 px-3.5 py-1.5 rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.15)]">
           <span class="text-[10px] font-bold text-cyan-400 tracking-wider uppercase">Score</span>
@@ -63,14 +54,13 @@
         </div>
       </div>
 
-      <!-- Center: Timer / Lives & Combo Meter -->
+      <!-- Center: Timer / Lives & Combo -->
       <div class="flex flex-col items-center gap-1.5">
         <div id="hudModeIndicator" class="flex items-center gap-2 px-4 py-1.5 rounded-xl border border-slate-800 bg-slate-950/80 font-mono-nums font-extrabold text-lg sm:text-xl shadow-lg">
           <span id="hudModeIcon">⏱️</span>
           <span id="hudModeVal">60s</span>
         </div>
 
-        <!-- Combo Streak Badge -->
         <div id="hudComboContainer" class="hidden flex-col items-center">
           <div class="flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 border border-amber-400/50 text-amber-300 text-xs font-bold shadow-[0_0_12px_rgba(245,158,11,0.4)]">
             <span>🔥</span>
@@ -106,11 +96,8 @@
 
     <!-- Bottom Bar -->
     <div class="flex items-end justify-between w-full">
-      <!-- Active Weapon -->
       <div class="flex items-center gap-2 bg-slate-950/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs">
-        <div id="weaponIconBox" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
-          ⚡
-        </div>
+        <div id="weaponIconBox" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">⚡</div>
         <div class="flex flex-col">
           <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Weapon</span>
           <span id="hudWeaponName" class="font-bold text-white uppercase text-xs">Pulse Blaster</span>
@@ -118,7 +105,6 @@
         <div id="hudWeaponTimer" class="hidden ml-2 pl-2 border-l border-slate-800 font-mono text-amber-400 text-xs font-bold">10.0s</div>
       </div>
 
-      <!-- Hits & Accuracy -->
       <div class="flex items-center gap-3 bg-slate-950/80 border border-slate-800/80 px-3 py-2 rounded-xl text-xs font-mono-nums">
         <div class="flex items-center gap-1.5 text-slate-400">
           <span class="text-cyan-400">🎯</span>
@@ -136,7 +122,6 @@
 
   <!-- TITLE SCREEN -->
   <div id="titleScreen" class="absolute inset-0 z-30 flex flex-col items-center justify-between p-6 sm:p-10 pointer-events-auto bg-slate-950/75 backdrop-blur-xs">
-    <!-- Top Row -->
     <div class="w-full max-w-4xl flex items-center justify-between">
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-amber-300">
         <span>🏆</span>
@@ -156,9 +141,7 @@
       </div>
     </div>
 
-    <!-- Center Hero -->
     <div class="flex flex-col items-center text-center max-w-xl my-auto">
-      <!-- Target Face Spotlight -->
       <div id="heroAvatarBadge" class="relative group cursor-pointer mb-5" title="Click to change target face">
         <div class="absolute -inset-3 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-fuchsia-500 opacity-60 group-hover:opacity-100 blur-lg transition duration-500 group-hover:scale-105"></div>
         <div class="relative w-28 h-28 rounded-full p-1 bg-slate-950 border-2 border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.7)] flex items-center justify-center overflow-hidden">
@@ -173,7 +156,6 @@
         </span>
       </div>
 
-      <!-- Title Lockup -->
       <h1 class="text-4xl sm:text-5xl font-black uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-rose-400 drop-shadow-[0_0_25px_rgba(6,182,212,0.5)] mb-2">
         Face Blaster 2D
       </h1>
@@ -181,7 +163,6 @@
         Blast floating photo targets &bull; Chain insane combos &bull; Unlock power-ups
       </p>
 
-      <!-- Mode Select -->
       <div class="grid grid-cols-3 gap-2 w-full max-w-sm mb-6 bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800">
         <button id="modeBtnArcade" class="py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center gap-1 cursor-pointer bg-cyan-500 text-slate-950 shadow-[0_0_15px_rgba(6,182,212,0.6)]">
           <span>⏱️</span>
@@ -197,7 +178,6 @@
         </button>
       </div>
 
-      <!-- Start Button -->
       <button id="btnStart" class="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-2xl text-base sm:text-lg font-black text-slate-950 bg-gradient-to-r from-cyan-400 via-sky-400 to-teal-300 hover:from-cyan-300 hover:to-teal-200 shadow-[0_0_35px_rgba(6,182,212,0.7)] hover:shadow-[0_0_50px_rgba(6,182,212,0.9)] hover:scale-105 active:scale-95 transition-all cursor-pointer">
         <span>▶</span>
         <span>START GAME</span>
@@ -205,7 +185,6 @@
       </button>
     </div>
 
-    <!-- Hints -->
     <div class="text-[11px] sm:text-xs text-slate-400 font-mono tracking-wide flex items-center gap-2 sm:gap-4 flex-wrap justify-center border-t border-slate-800/80 pt-4 w-full max-w-lg">
       <span>🖱️ Click/Tap Shoot</span>
       <span>&bull;</span>
@@ -247,7 +226,7 @@
         ✨ New High Score!
       </div>
       <h3 class="text-2xl sm:text-3xl font-black text-white tracking-wide uppercase mt-2 mb-1">Match Complete</h3>
-      <p id="gameOverSubtext" class="text-xs text-slate-400 mb-6">60 Seconds Arcade Rush Concluded</p>
+      <p class="text-xs text-slate-400 mb-6">Target Run Ended</p>
 
       <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 mb-5">
         <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Final Score</span>
@@ -286,7 +265,6 @@
   <!-- PHOTO UPLOADER MODAL -->
   <div id="photoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
     <div class="relative w-full max-w-xl bg-slate-900/95 border border-cyan-500/30 rounded-2xl shadow-[0_0_50px_rgba(6,182,212,0.25)] p-6 text-slate-100 max-h-[90vh] overflow-y-auto">
-      <!-- Header -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
         <div>
           <h2 class="text-xl font-bold tracking-wide text-white flex items-center gap-2">
@@ -298,9 +276,7 @@
         <button id="btnClosePhotoModal" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center cursor-pointer">✕</button>
       </div>
 
-      <!-- Preview & Upload -->
       <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 mb-6">
-        <!-- Target Preview -->
         <div class="sm:col-span-5 flex flex-col items-center justify-center p-4 rounded-xl bg-slate-950/60 border border-slate-800 relative">
           <span class="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider mb-2">Live Target Preview</span>
           <div class="relative w-36 h-36 flex items-center justify-center">
@@ -317,16 +293,14 @@
           <span class="text-[10px] text-slate-400 mt-2 text-center">Faces wobble & explode into neon particles!</span>
         </div>
 
-        <!-- Uploader Input & Presets -->
         <div class="sm:col-span-7 flex flex-col justify-between gap-3">
-          <label for="customFileInput" id="dropZone" class="flex-1 border-2 border-dashed border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800/40 rounded-xl p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-all">
+          <label for="customFileInput" class="flex-1 border-2 border-dashed border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800/40 rounded-xl p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-all">
             <input type="file" id="customFileInput" accept="image/*" class="hidden">
             <div class="w-12 h-12 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-2 text-2xl">📁</div>
             <p class="text-sm font-semibold text-slate-200">Choose a photo from your device</p>
             <p class="text-xs text-slate-400 mt-1">PNG, JPG, WebP supported &middot; Click or Drag & Drop</p>
           </label>
 
-          <!-- Quick Presets -->
           <div>
             <span class="text-[11px] font-medium text-slate-400 mb-1.5 block">Presets:</span>
             <div class="grid grid-cols-2 gap-2">
@@ -337,7 +311,6 @@
         </div>
       </div>
 
-      <!-- Fit Sliders -->
       <div class="bg-slate-950/40 border border-slate-800 rounded-xl p-4 mb-5 space-y-3">
         <div class="text-xs font-semibold text-cyan-300 uppercase tracking-wider">Fit & Alignment Adjustments</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -358,7 +331,6 @@
         </div>
       </div>
 
-      <!-- Accessories -->
       <div class="mb-6">
         <div class="text-xs font-semibold text-amber-300 uppercase tracking-wider mb-2.5">Face Accessories & Props</div>
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="accessoryGrid">
@@ -389,7 +361,6 @@
         </div>
       </div>
 
-      <!-- Action Footer -->
       <div class="flex items-center justify-between border-t border-slate-800 pt-4">
         <button id="btnResetPhoto" class="text-xs text-slate-400 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 cursor-pointer">Reset to Default</button>
         <div class="flex items-center gap-2">
@@ -402,7 +373,6 @@
 
   <!-- JAVASCRIPT GAME ENGINE -->
   <script>
-    // --- 1. PROCEDURAL WEB AUDIO SYNTHESIZER ---
     class SoundManager {
       constructor() {
         this.ctx = null;
@@ -417,9 +387,7 @@
           this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.35, this.ctx.currentTime);
           this.masterGain.connect(this.ctx.destination);
         }
-        if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
-        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
       }
       toggleMute() {
         this.isMuted = !this.isMuted;
@@ -493,7 +461,6 @@
         this.init();
         if (!this.ctx || !this.masterGain) return;
         const t = this.ctx.currentTime;
-        // Pop impact
         const popOsc = this.ctx.createOscillator();
         const popGain = this.ctx.createGain();
         popOsc.type = 'sine';
@@ -506,7 +473,6 @@
         popOsc.start(t);
         popOsc.stop(t + 0.08);
 
-        // Musical pentatonic chime rising with combo
         const scale = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5, 1174.66, 1318.51];
         const freq = scale[Math.min(combo, scale.length - 1)];
         const chime = this.ctx.createOscillator();
@@ -595,10 +561,9 @@
 
     const sound = new SoundManager();
 
-    // --- 2. GAME STATE & CONSTANTS ---
     const DEFAULT_IMAGE_PATH = '/assets/aistudio/saiful_99435e5e.png';
-    let gameState = 'title'; // 'title', 'playing', 'paused', 'gameover'
-    let gameMode = 'arcade';  // 'arcade', 'survival', 'zen'
+    let gameState = 'title';
+    let gameMode = 'arcade';
 
     let faceSettings = {
       imageUrl: DEFAULT_IMAGE_PATH,
@@ -622,7 +587,6 @@
     let activeWeapon = 'blaster';
     let weaponTimer = 0;
 
-    // Canvas elements & Simulation collections
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -643,17 +607,14 @@
     let mousePos = { x: -100, y: -100, active: false };
     let isMouseDown = false;
 
-    // Cached target image
     let faceImage = new Image();
     faceImage.crossOrigin = 'anonymous';
     faceImage.src = faceSettings.imageUrl;
 
-    // Fallback drawing if custom image fails
     let imageLoaded = false;
     faceImage.onload = () => { imageLoaded = true; };
     faceImage.onerror = () => { imageLoaded = false; };
 
-    // --- 3. CANVAS RESIZE & STARS ---
     function resizeCanvas() {
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
@@ -676,7 +637,6 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // --- 4. TARGET SPAWNING & FX ---
     let nextTargetId = 1;
     function spawnTarget() {
       const w = window.innerWidth;
@@ -757,7 +717,6 @@
       });
     }
 
-    // --- 5. SHOOTING & HIT-DETECTION ---
     function fireWeapon(clientX, clientY) {
       if (gameState !== 'playing') return;
 
@@ -773,7 +732,6 @@
       const startX = w / 2;
       const startY = h;
 
-      // Laser lines
       if (activeWeapon === 'triple') {
         [-25, 0, 25].forEach(offset => {
           shotEffects.push({
@@ -878,7 +836,6 @@
         }
       }
 
-      // Check weapon powerups
       for (let i = powerUps.length - 1; i >= 0; i--) {
         const p = powerUps[i];
         if (Math.hypot(clientX - p.x, clientY - p.y) <= p.radius + 15) {
@@ -901,7 +858,6 @@
       }
     }
 
-    // --- 6. MAIN GAME LOOP ---
     function gameLoop(now) {
       if (!lastTime) lastTime = now;
       const rawDt = (now - lastTime) / 1000;
@@ -948,11 +904,9 @@
       ctx.save();
       ctx.translate(shakeX, shakeY);
 
-      // Background
       ctx.fillStyle = '#05070f';
       ctx.fillRect(-10, -10, w + 20, h + 20);
 
-      // Grid
       ctx.strokeStyle = 'rgba(6, 182, 212, 0.06)';
       ctx.lineWidth = 1;
       for (let x = 0; x < w; x += 40) {
@@ -962,7 +916,6 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
       }
 
-      // Stars
       stars.forEach(s => {
         if (gameState !== 'paused') {
           s.y -= s.speed;
@@ -972,7 +925,6 @@
         ctx.fillRect(s.x, s.y, s.size, s.size);
       });
 
-      // Powerups
       for (let i = powerUps.length - 1; i >= 0; i--) {
         const p = powerUps[i];
         if (gameState !== 'paused') {
@@ -992,7 +944,6 @@
         if (p.y > h + 50) powerUps.splice(i, 1);
       }
 
-      // Floating Targets
       for (let i = targets.length - 1; i >= 0; i--) {
         const t = targets[i];
         if (gameState !== 'paused') {
@@ -1020,13 +971,11 @@
           }
         }
 
-        // Draw Target
         ctx.save();
         ctx.translate(t.x, t.y);
         ctx.scale(t.squashX, t.squashY);
         ctx.rotate(t.rotation);
 
-        // Glow ring
         ctx.beginPath();
         ctx.arc(0, 0, t.radius + 4, 0, Math.PI * 2);
         ctx.strokeStyle = t.color;
@@ -1036,7 +985,6 @@
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // Circular Face Clip
         ctx.save();
         ctx.beginPath();
         ctx.arc(0, 0, t.radius, 0, Math.PI * 2);
@@ -1062,7 +1010,6 @@
         }
         ctx.restore();
 
-        // Ticks & Bullseye
         ctx.strokeStyle = t.color;
         ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.moveTo(0, -t.radius); ctx.lineTo(0, -t.radius + 6); ctx.stroke();
@@ -1072,7 +1019,6 @@
         ctx.beginPath(); ctx.arc(0, 0, t.radius * 0.35, 0, Math.PI * 2);
         ctx.strokeStyle = `${t.color}66`; ctx.stroke();
 
-        // Accessories
         if (faceSettings.accessory === 'sunglasses') {
           ctx.fillStyle = '#0f172a'; ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 1.5;
           ctx.fillRect(-t.radius * 0.65, -t.radius * 0.15, t.radius * 0.55, t.radius * 0.3);
@@ -1116,7 +1062,6 @@
         ctx.restore();
       }
 
-      // Lasers
       for (let i = shotEffects.length - 1; i >= 0; i--) {
         const s = shotEffects[i];
         if (gameState !== 'paused') s.alpha -= dt * 6;
@@ -1127,7 +1072,6 @@
         if (s.alpha <= 0) shotEffects.splice(i, 1);
       }
 
-      // Shockwaves
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         if (gameState !== 'paused') {
@@ -1141,7 +1085,6 @@
         if (sw.alpha <= 0) shockwaves.splice(i, 1);
       }
 
-      // Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         if (gameState !== 'paused') {
@@ -1161,7 +1104,6 @@
         if (p.alpha <= 0) particles.splice(i, 1);
       }
 
-      // Floating Texts
       for (let i = floatingTexts.length - 1; i >= 0; i--) {
         const ft = floatingTexts[i];
         if (gameState !== 'paused') {
@@ -1178,7 +1120,6 @@
         if (ft.age >= ft.duration) floatingTexts.splice(i, 1);
       }
 
-      // Dynamic Reticle
       if (mousePos.active) {
         ctx.save();
         ctx.strokeStyle = activeWeapon === 'plasma' ? '#c084fc' : activeWeapon === 'laser' ? '#34d399' : '#22d3ee';
@@ -1201,7 +1142,6 @@
     }
     requestAnimationFrame(gameLoop);
 
-    // --- 7. UI CONTROLLERS & EVENTS ---
     function updateHUD() {
       document.getElementById('hudScore').innerText = stats.score.toLocaleString();
       document.getElementById('hudHighScore').innerText = stats.highScore.toLocaleString();
@@ -1281,7 +1221,6 @@
       document.getElementById('gameOverModal').classList.remove('hidden');
     }
 
-    // Canvas Pointer events
     canvas.addEventListener('pointerdown', (e) => {
       isMouseDown = true;
       mousePos = { x: e.clientX, y: e.clientY, active: true };
@@ -1294,7 +1233,6 @@
     window.addEventListener('pointerup', () => { isMouseDown = false; });
     canvas.addEventListener('pointerleave', () => { isMouseDown = false; mousePos.active = false; });
 
-    // Mode Selector
     function setMode(mode) {
       gameMode = mode;
       ['Arcade', 'Survival', 'Zen'].forEach(m => {
@@ -1310,7 +1248,6 @@
     document.getElementById('modeBtnSurvival').onclick = () => setMode('survival');
     document.getElementById('modeBtnZen').onclick = () => setMode('zen');
 
-    // Controls
     document.getElementById('btnStart').onclick = startGame;
     document.getElementById('btnPlayAgain').onclick = startGame;
     document.getElementById('btnRestartInGame').onclick = startGame;
@@ -1337,7 +1274,6 @@
       document.getElementById('titleScreen').classList.remove('hidden');
     };
 
-    // Mute Toggles
     function updateMuteIcons(muted) {
       document.getElementById('muteIcon').innerText = muted ? '🔇' : '🔊';
       document.getElementById('titleMuteIcon').innerText = muted ? '🔇' : '🔊';
@@ -1345,7 +1281,6 @@
     document.getElementById('btnToggleMute').onclick = () => updateMuteIcons(sound.toggleMute());
     document.getElementById('btnTitleMute').onclick = () => updateMuteIcons(sound.toggleMute());
 
-    // Keyboard bindings
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'Enter') {
         if (gameState === 'title' || gameState === 'gameover') {
@@ -1367,7 +1302,6 @@
       }
     });
 
-    // --- 8. PHOTO CUSTOMIZER MODAL LOGIC ---
     const photoModal = document.getElementById('photoModal');
     const customFileInput = document.getElementById('customFileInput');
     const modalPreviewImg = document.getElementById('modalPreviewImg');
@@ -1480,7 +1414,6 @@
       faceImage.onload = () => { imageLoaded = true; };
       faceImage.onerror = () => { imageLoaded = false; };
 
-      // Update Title hero
       document.getElementById('titleAvatarImg').src = faceSettings.imageUrl;
       document.getElementById('titleAvatarImg').style.transform = `scale(${faceSettings.zoom}) translateY(${faceSettings.offsetY}%)`;
       const titleAcc = document.getElementById('titleAccessoryOverlay');
@@ -1495,7 +1428,6 @@
       closePhotoModal();
     };
 
-    // Initialize high score on load
     document.getElementById('titleHighScore').innerText = stats.highScore.toLocaleString();
   </script>
 </body>
